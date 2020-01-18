@@ -15,8 +15,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using Microsoft.IdentityModel.Tokens;
-
+using fristupmindeAPI.Properties;
 
 namespace fristupmindeAPI
 {
@@ -42,6 +43,11 @@ namespace fristupmindeAPI
 
             services.AddDbContext<DataContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddSwaggerGen(service =>
+            {
+                service.SwaggerDoc("v1", new OpenApiInfo { Title = "Fristrupminde API", Version = "v1" });
+            });
 
             /*
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -85,6 +91,18 @@ namespace fristupmindeAPI
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+            }
+
+            if (env.IsDevelopment())
+            {
+                var swaggerOptions = new SwaggerOptions();
+                Configuration.GetSection(nameof(SwaggerOptions)).Bind(swaggerOptions);
+
+                app.UseSwagger();
+                app.UseSwaggerUI(option =>
+                {
+                    option.SwaggerEndpoint(swaggerOptions.UiEndpoint, swaggerOptions.Description);
+                });
             }
 
             app.UseCors(MyAllowSpecificOrigins);

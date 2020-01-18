@@ -56,6 +56,23 @@ namespace fristupmindeAPI.Controllers
             return Ok();
         }
 
+        [HttpDelete]
+        [Route("api/deleteTask/{id}")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public async Task<IActionResult> postTask(int id)
+        {
+            ProjectTask InputTask = new ProjectTask();
+
+            ProjectTask PT = await _context.Tasks.SingleOrDefaultAsync(x => x.ProjectTaskID == id);
+            if(PT == null)
+            {
+                return NotFound();
+            }
+            _context.Tasks.Remove(PT);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
 
     }
 }

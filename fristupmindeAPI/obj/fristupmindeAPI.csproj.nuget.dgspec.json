@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/mortentimmermann/Desktop/Fristupminde/Primary/APIfristupminde/fristupmindeAPI/fristupmindeAPI.csproj": {}
+    "/Users/mortentimmermann/Desktop/fristrupminde-asp-backend/fristupmindeAPI/fristupmindeAPI.csproj": {}
   },
   "projects": {
-    "/Users/mortentimmermann/Desktop/Fristupminde/Primary/APIfristupminde/fristupmindeAPI/fristupmindeAPI.csproj": {
+    "/Users/mortentimmermann/Desktop/fristrupminde-asp-backend/fristupmindeAPI/fristupmindeAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/mortentimmermann/Desktop/Fristupminde/Primary/APIfristupminde/fristupmindeAPI/fristupmindeAPI.csproj",
+        "projectUniqueName": "/Users/mortentimmermann/Desktop/fristrupminde-asp-backend/fristupmindeAPI/fristupmindeAPI.csproj",
         "projectName": "fristupmindeAPI",
-        "projectPath": "/Users/mortentimmermann/Desktop/Fristupminde/Primary/APIfristupminde/fristupmindeAPI/fristupmindeAPI.csproj",
+        "projectPath": "/Users/mortentimmermann/Desktop/fristrupminde-asp-backend/fristupmindeAPI/fristupmindeAPI.csproj",
         "packagesPath": "/Users/mortentimmermann/.nuget/packages/",
-        "outputPath": "/Users/mortentimmermann/Desktop/Fristupminde/Primary/APIfristupminde/fristupmindeAPI/obj/",
+        "outputPath": "/Users/mortentimmermann/Desktop/fristrupminde-asp-backend/fristupmindeAPI/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
@@ -101,6 +101,10 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[12.0.2, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[5.0.0, )"
             }
           },
           "imports": [

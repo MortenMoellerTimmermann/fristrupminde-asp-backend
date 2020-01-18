@@ -1,0 +1,33 @@
+﻿<Properties StartupConfiguration="{E235CEF6-D54D-4437-AEFC-A5FFEBB74183}|Default">
+  <MonoDevelop.Ide.ItemProperties.fristupmindeAPI PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="fristupmindeAPI/appsettings.json">
+    <Files>
+      <File FileName="fristupmindeAPI/Startup.cs" Line="96" Column="37" />
+      <File FileName="fristupmindeAPI/appsettings.json" Line="21" Column="1" />
+      <File FileName="fristupmindeAPI/Controllers/TaskController.cs" Line="71" Column="39" />
+      <File FileName="fristupmindeAPI/Models/Task.cs" Line="4" Column="18" />
+      <File FileName="fristupmindeAPI/Migrations/20191024151854_InitialCreate.cs" Line="50" Column="24" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="fristupmindeAPI" expanded="True">
+            <Node name="fristupmindeAPI" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Options" expanded="True" />
+              <Node name="Properties" expanded="True" />
+              <Node name="appsettings.json" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
