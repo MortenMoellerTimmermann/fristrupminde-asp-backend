@@ -1,0 +1,31 @@
+﻿<Properties StartupConfiguration="{C38F43F5-8FA1-44F8-8988-89549AA6DAAC}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="fristrupminde-api-backend/Startup.cs">
+    <Files>
+      <File FileName="fristrupminde-api-backend/Startup.cs" Line="45" Column="14" />
+      <File FileName="fristrupminde-api-backend/Data/DataContext.cs" />
+      <File FileName="fristrupminde-api-backend/Controllers/ProjectTaskController.cs" Line="12" Column="19" />
+      <File FileName="fristrupminde-api-backend/Program.cs" />
+      <File FileName="fristrupminde-api-backend/Models/ApplicationUser.cs" />
+      <File FileName="fristrupminde-api-backend/Models/ErrorViewModel.cs" />
+      <File FileName="fristrupminde-api-backend/appsettings.json" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="fristrupminde-api-backend" expanded="True">
+            <Node name="fristrupminde-api-backend" expanded="True">
+              <Node name="Startup.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.fristrupminde-api-backend PreferredExecutionTarget="/Applications/Google Chrome.app" />
+</Properties>
