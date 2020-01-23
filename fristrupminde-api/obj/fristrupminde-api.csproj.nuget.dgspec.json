@@ -1,0 +1,139 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/mortentimmermann/Desktop/test/fristrupminde-api/fristrupminde-api/fristrupminde-api.csproj": {}
+  },
+  "projects": {
+    "/Users/mortentimmermann/Desktop/test/fristrupminde-api/fristrupminde-api/fristrupminde-api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/mortentimmermann/Desktop/test/fristrupminde-api/fristrupminde-api/fristrupminde-api.csproj",
+        "projectName": "fristrupminde-api",
+        "projectPath": "/Users/mortentimmermann/Desktop/test/fristrupminde-api/fristrupminde-api/fristrupminde-api.csproj",
+        "packagesPath": "/Users/mortentimmermann/.nuget/packages/",
+        "outputPath": "/Users/mortentimmermann/Desktop/test/fristrupminde-api/fristrupminde-api/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/Users/mortentimmermann/.config/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "EntityFramework": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            },
+            "Microsoft.AspNet.Identity.Core": {
+              "target": "Package",
+              "version": "[2.2.3, )"
+            },
+            "Microsoft.AspNet.Identity.EntityFramework": {
+              "target": "Package",
+              "version": "[2.2.3, )"
+            },
+            "Microsoft.AspNet.Mvc": {
+              "target": "Package",
+              "version": "[5.2.7, )"
+            },
+            "Microsoft.AspNet.WebApi.Cors": {
+              "target": "Package",
+              "version": "[5.2.7, )"
+            },
+            "Microsoft.AspNetCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "Microsoft.AspNetCore.Cors": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Cors": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Razor.Design": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "Microsoft.OpenApi": {
+              "target": "Package",
+              "version": "[1.1.4, )"
+            },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[8.0.19, )"
+            },
+            "MySql.Data.Entity": {
+              "target": "Package",
+              "version": "[6.10.9, )"
+            },
+            "MySql.Data.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.19, )"
+            },
+            "MySqlConnector": {
+              "target": "Package",
+              "version": "[0.61.0, )"
+            },
+            "SwashBuckle.AspNetCore.MicrosoftExtensions": {
+              "target": "Package",
+              "version": "[0.5.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[5.6.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.101/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
