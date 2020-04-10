@@ -6,6 +6,7 @@ using fristrupminde_api.Models;
 using fristrupminde_api.Data;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using fristrupminde_api.Models.Inputs.ProjectTaskInputs;
 using System.Net;
 using System;
 using System.Security.Claims;
@@ -40,23 +41,24 @@ namespace fristrupminde_api.Controllers
         [HttpPost]
         [Route("api/postTask")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public async Task<IActionResult> postTask([FromBody]ProjectTask task)
+        public async Task<IActionResult> postTask([FromBody]CreateTaskInput taskInput)
         {
-            ProjectTask InputTask = new ProjectTask();
-            InputTask.ID = 20;
-            InputTask.Title = task.Title;
-            InputTask.Description = task.Description;
+            ProjectTask NewTask = new ProjectTask();
+            NewTask.Title = taskInput.Title;
+            NewTask.Description = taskInput.Description;
+            NewTask.Created = DateTime.Now;
+            NewTask.DueDate = DateTime.Parse(taskInput.DueDate);
 
-            _context.Add(InputTask);
+            _context.Add(NewTask);
             await _context.SaveChangesAsync();
 
-            return Ok();
+            return Json(NewTask.ID);
         }
 
         [HttpDelete]
         [Route("api/deleteTask/{id}")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public async Task<IActionResult> postTask(int id)
+        public async Task<IActionResult> deleteTask(string id)
         {
             ProjectTask InputTask = new ProjectTask();
 

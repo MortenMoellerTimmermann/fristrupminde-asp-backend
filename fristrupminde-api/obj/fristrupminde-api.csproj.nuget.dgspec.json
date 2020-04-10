@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "/Users/mortentimmermann/Desktop/test/fristrupminde-api/fristrupminde-api/fristrupminde-api.csproj": {}
+    "/Users/mortentimmermann/Desktop/fristrupminde-asp-backend/fristrupminde-api/fristrupminde-api.csproj": {}
   },
   "projects": {
-    "/Users/mortentimmermann/Desktop/test/fristrupminde-api/fristrupminde-api/fristrupminde-api.csproj": {
+    "/Users/mortentimmermann/Desktop/fristrupminde-asp-backend/fristrupminde-api/fristrupminde-api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/mortentimmermann/Desktop/test/fristrupminde-api/fristrupminde-api/fristrupminde-api.csproj",
+        "projectUniqueName": "/Users/mortentimmermann/Desktop/fristrupminde-asp-backend/fristrupminde-api/fristrupminde-api.csproj",
         "projectName": "fristrupminde-api",
-        "projectPath": "/Users/mortentimmermann/Desktop/test/fristrupminde-api/fristrupminde-api/fristrupminde-api.csproj",
+        "projectPath": "/Users/mortentimmermann/Desktop/fristrupminde-asp-backend/fristrupminde-api/fristrupminde-api.csproj",
         "packagesPath": "/Users/mortentimmermann/.nuget/packages/",
-        "outputPath": "/Users/mortentimmermann/Desktop/test/fristrupminde-api/fristrupminde-api/obj/",
+        "outputPath": "/Users/mortentimmermann/Desktop/fristrupminde-asp-backend/fristrupminde-api/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/Users/mortentimmermann/.config/NuGet/NuGet.Config"
+          "/Users/mortentimmermann/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
@@ -115,6 +115,14 @@
             "SwashBuckle.AspNetCore.MicrosoftExtensions": {
               "target": "Package",
               "version": "[0.5.0, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerGen": {
+              "target": "Package",
+              "version": "[5.3.1, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerUI": {
+              "target": "Package",
+              "version": "[5.3.1, )"
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",

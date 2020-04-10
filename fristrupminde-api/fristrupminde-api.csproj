@@ -29,10 +29,15 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.OpenApi" Version="1.1.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.3.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.3.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Options\" />
     <Folder Include="Data\" />
+    <Folder Include="Models\Inputs\" />
+    <Folder Include="Models\Inputs\ProjectTaskInputs\" />
+    <Folder Include="Models\Outputs\" />
   </ItemGroup>
 </Project>
