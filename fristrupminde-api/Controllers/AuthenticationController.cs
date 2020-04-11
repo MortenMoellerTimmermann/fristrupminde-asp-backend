@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
+using fristrupminde_api.Models.Inputs.Authentication;
 using System.Linq;
+using fristrupminde_api.Models;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,11 +19,11 @@ namespace fristrupminde_api.Controllers
     public class AuthenticationController : Controller
     {
 
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _config;
 
-        public AuthenticationController(UserManager<IdentityUser> userManager,SignInManager<IdentityUser> signInManager, IConfiguration configuration)
+        public AuthenticationController(UserManager<ApplicationUser> userManager,SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -30,11 +31,27 @@ namespace fristrupminde_api.Controllers
         }
 
         [HttpPost]
+        [Route("api/login")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public async Task<Object> Login([FromBody] LoginDTO model)
+        {
+            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+
+            if (result.Succeeded)
+            {
+                ApplicationUser user = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
+                return await GenerateJwtToken(user);
+            }
+
+            throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
+        }
+
+        [HttpPost]
         [Route("api/register")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public async Task<object> Register([FromBody] RegisterDto model)
+        public async Task<Object> Register([FromBody] RegisterDTO model)
         {
-            var user = new IdentityUser
+            var user = new ApplicationUser
             {
                 UserName = model.Email,
                 Email = model.Email
@@ -44,20 +61,35 @@ namespace fristrupminde_api.Controllers
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
-                return Json(user.Email);
+                return await GenerateJwtToken(user);
             }
 
             throw new ApplicationException("UNKNOWN_ERROR");
         }
 
-        public class RegisterDto
+        private async Task<Object> GenerateJwtToken(ApplicationUser user)
         {
-            [Required]
-            public string Email { get; set; }
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                //new Claim(ClaimTypes.NameIdentifier, user.Email)
+            };
 
-            [Required]
-            [StringLength(100, ErrorMessage = "PASSWORD_MIN_LENGTH", MinimumLength = 6)]
-            public string Password { get; set; }
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var expires = DateTime.Now.AddDays(Convert.ToDouble(_config["Jwt:ExpireDays"]));
+
+            var token = new JwtSecurityToken(
+                _config["Jwt:Issuer"],
+                _config["Jwt:Issuer"],
+                claims,
+                expires: expires,
+                signingCredentials: creds
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
     }
 }

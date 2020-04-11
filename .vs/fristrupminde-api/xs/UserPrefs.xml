@@ -1,20 +1,12 @@
 ﻿<Properties StartupConfiguration="{29399877-7BA3-4524-99B3-60A8EB0480C3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="fristrupminde-api/Properties/launchSettings.json">
+  <MonoDevelop.Ide.Workbench ActiveDocument="fristrupminde-api/Controllers/AuthenticationController.cs">
     <Files>
-      <File FileName="fristrupminde-api/Properties/launchSettings.json" Line="16" Column="8" />
-      <File FileName="fristrupminde-api/Models/Inputs/ProjectTaskInputs/CreateTaskInput.cs" />
-      <File FileName="fristrupminde-api/Controllers/ProjectTaskController.cs" Line="67" Column="1" />
-      <File FileName="fristrupminde-api/Models/ProjectTask.cs" Line="1" Column="1" />
-      <File FileName="fristrupminde-api/Data/DataContext.cs" Line="44" Column="16" />
-      <File FileName="fristrupminde-api/Models/ProjectTaskUser.cs" Line="11" Column="1" />
-      <File FileName="fristrupminde-api/Startup.cs" Line="79" Column="1" />
-      <File FileName="fristrupminde-api/Models/ApplicationUser.cs" Line="6" Column="53" />
-      <File FileName="fristrupminde-api/Models/Animal.cs" />
-      <File FileName="fristrupminde-api/Models/ErrorViewModel.cs" />
-      <File FileName="fristrupminde-api/Program.cs" Line="1" Column="1" />
-      <File FileName="fristrupminde-api/Models/ApplicationRole.cs" Line="11" Column="1" />
-      <File FileName="fristrupminde-api/appsettings.json" Line="17" Column="24" />
-      <File FileName="fristrupminde-api/Controllers/AuthenticationController.cs" Line="44" Column="34" />
+      <File FileName="fristrupminde-api/Controllers/AuthenticationController.cs" Line="94" Column="6" />
+      <File FileName="fristrupminde-api/Models/ApplicationUser.cs" Line="6" Column="44" />
+      <File FileName="fristrupminde-api/Data/DataContext.cs" Line="39" Column="39" />
+      <File FileName="fristrupminde-api/Models/Inputs/Authentication/RegisterDTO.cs" Line="6" Column="29" />
+      <File FileName="fristrupminde-api/Models/Inputs/Authentication/LoginDTO.cs" Line="6" Column="26" />
+      <File FileName="fristrupminde-api/Controllers/ProjectTaskController.cs" Line="1" Column="1" />
       <File FileName="fristrupminde-api/Controllers/HomeController.cs" Line="1" Column="1" />
     </Files>
     <Pads>
@@ -22,16 +14,18 @@
         <State name="__root__">
           <Node name="fristrupminde-api" expanded="True">
             <Node name="fristrupminde-api" expanded="True">
-              <Node name="Controllers" expanded="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="AuthenticationController.cs" selected="True" />
+              </Node>
               <Node name="Data" expanded="True" />
+              <Node name="Migrations" expanded="True" />
               <Node name="Models" expanded="True">
                 <Node name="Inputs" expanded="True">
+                  <Node name="Authentication" expanded="True" />
                   <Node name="ProjectTaskInputs" expanded="True" />
                 </Node>
               </Node>
-              <Node name="Properties" expanded="True">
-                <Node name="launchSettings.json" selected="True" />
-              </Node>
+              <Node name="Properties" expanded="True" />
             </Node>
           </Node>
         </State>

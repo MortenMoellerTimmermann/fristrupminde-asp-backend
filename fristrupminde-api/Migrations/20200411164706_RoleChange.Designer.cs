@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fristrupminde_api.Data;
 
 namespace fristrupminde_api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200411164706_RoleChange")]
+    partial class RoleChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -146,7 +148,6 @@ namespace fristrupminde_api.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
-                        .IsRequired()
                         .HasMaxLength(128);
 
                     b.HasKey("Id");
@@ -172,9 +173,9 @@ namespace fristrupminde_api.Migrations
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
-                    b.Property<int>("EmailConfirmed");
+                    b.Property<bool>("EmailConfirmed");
 
-                    b.Property<int>("LockoutEnabled");
+                    b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
@@ -190,11 +191,11 @@ namespace fristrupminde_api.Migrations
 
                     b.Property<string>("PhoneNumber");
 
-                    b.Property<int>("PhoneNumberConfirmed");
+                    b.Property<bool>("PhoneNumberConfirmed");
 
                     b.Property<string>("SecurityStamp");
 
-                    b.Property<int>("TwoFactorEnabled");
+                    b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);

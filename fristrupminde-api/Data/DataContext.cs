@@ -20,12 +20,7 @@ namespace fristrupminde_api.Data
         {
             base.OnModelCreating(builder);
 
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
             builder.Entity<ApplicationUser>(entity => {
-                // Due to some InnoDb's byte restriction we specify the coloums size 
-                // to avoid migration errors
                 entity.ToTable(name: "Users");
                 entity.Property(c => c.NormalizedEmail)
                     .HasMaxLength(128)
@@ -33,10 +28,12 @@ namespace fristrupminde_api.Data
                 entity.Property(c => c.NormalizedUserName)
                     .HasMaxLength(128)
                     .IsRequired();
+                entity.Property(c => c.EmailConfirmed).HasConversion<int>();
+                entity.Property(c => c.PhoneNumberConfirmed).HasConversion<int>();
+                entity.Property(c => c.TwoFactorEnabled).HasConversion<int>();
+                entity.Property(c => c.LockoutEnabled).HasConversion<int>();
             });
-            builder.Entity<IdentityRole>(entity => {
-                // Due to some InnoDb's byte restriction we specify the coloums size 
-                // to avoid migration errors
+            builder.Entity<ApplicationRole>(entity => {
                 entity.ToTable(name: "Role");
                 entity.Property(c => c.NormalizedName)
                     .HasMaxLength(128)

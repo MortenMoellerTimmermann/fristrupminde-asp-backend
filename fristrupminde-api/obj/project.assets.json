@@ -1910,6 +1910,17 @@
           "lib/netstandard2.0/_._": {}
         }
       },
+      "Microsoft.Extensions.ApiDescription.Server/3.0.0": {
+        "type": "package",
+        "build": {
+          "build/Microsoft.Extensions.ApiDescription.Server.props": {},
+          "build/Microsoft.Extensions.ApiDescription.Server.targets": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/Microsoft.Extensions.ApiDescription.Server.props": {},
+          "buildMultiTargeting/Microsoft.Extensions.ApiDescription.Server.targets": {}
+        }
+      },
       "Microsoft.Extensions.Caching.Abstractions/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -3209,18 +3220,16 @@
           "lib/netstandard1.3/SshNet.Security.Cryptography.dll": {}
         }
       },
-      "SwashBuckle.AspNetCore.MicrosoftExtensions/0.5.0": {
+      "Swashbuckle.AspNetCore/5.3.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.AspNetCore.WebUtilities": "1.1.2",
-          "NETStandard.Library": "1.6.1",
-          "Swashbuckle.AspNetCore.SwaggerGen": "1.0.0"
+          "Microsoft.Extensions.ApiDescription.Server": "3.0.0",
+          "Swashbuckle.AspNetCore.Swagger": "5.3.1",
+          "Swashbuckle.AspNetCore.SwaggerGen": "5.3.1",
+          "Swashbuckle.AspNetCore.SwaggerUI": "5.3.1"
         },
-        "compile": {
-          "lib/netstandard1.6/SwashBuckle.AspNetCore.MicrosoftExtensions.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.6/SwashBuckle.AspNetCore.MicrosoftExtensions.dll": {}
+        "build": {
+          "build/Swashbuckle.AspNetCore.props": {}
         }
       },
       "Swashbuckle.AspNetCore.Swagger/5.3.1": {
@@ -6562,6 +6571,33 @@
         "tools/netcoreapp2.0/any/ef.runtimeconfig.json"
       ]
     },
+    "Microsoft.Extensions.ApiDescription.Server/3.0.0": {
+      "sha512": "LH4OE/76F6sOCslif7+Xh3fS/wUUrE5ryeXAMcoCnuwOQGT5Smw0p57IgDh/pHgHaGz/e+AmEQb7pRgb++wt0w==",
+      "type": "package",
+      "path": "microsoft.extensions.apidescription.server/3.0.0",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/Microsoft.Extensions.ApiDescription.Server.props",
+        "build/Microsoft.Extensions.ApiDescription.Server.targets",
+        "buildMultiTargeting/Microsoft.Extensions.ApiDescription.Server.props",
+        "buildMultiTargeting/Microsoft.Extensions.ApiDescription.Server.targets",
+        "microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+        "microsoft.extensions.apidescription.server.nuspec",
+        "tools/Newtonsoft.Json.dll",
+        "tools/dotnet-getdocument.deps.json",
+        "tools/dotnet-getdocument.dll",
+        "tools/dotnet-getdocument.runtimeconfig.json",
+        "tools/net461-x86/GetDocument.Insider.exe",
+        "tools/net461-x86/GetDocument.Insider.exe.config",
+        "tools/net461/GetDocument.Insider.exe",
+        "tools/net461/GetDocument.Insider.exe.config",
+        "tools/netcoreapp2.1/GetDocument.Insider.deps.json",
+        "tools/netcoreapp2.1/GetDocument.Insider.dll",
+        "tools/netcoreapp2.1/GetDocument.Insider.runtimeconfig.json"
+      ]
+    },
     "Microsoft.Extensions.Caching.Abstractions/2.2.0": {
       "sha512": "spsJkYo8gGJapaxTSQFN/wqA+ghpJMLwB4ZyTB+fSdpd7AmMFP/YSpIcGmczcw4KggpxLGhLk7lCkSIlgvHaqQ==",
       "type": "package",
@@ -8388,16 +8424,16 @@
         "sshnet.security.cryptography.nuspec"
       ]
     },
-    "SwashBuckle.AspNetCore.MicrosoftExtensions/0.5.0": {
-      "sha512": "SXJZj4OqLHbPaqhf/0Xo4es+4+M7AwQCi4wsyWjjlFfohVmwRcaaer+HR+aWRqX1IJD2YNlZzjeEJovmdLlrYQ==",
+    "Swashbuckle.AspNetCore/5.3.1": {
+      "sha512": "gOyz34nuEM60oSTkh7Rzi/wujjoLuLiY3Q5EfoabJ4syST+U9VJaf/IFGRf4+2VlftDGJ8sIsrsj9tl9XONHnQ==",
       "type": "package",
-      "path": "swashbuckle.aspnetcore.microsoftextensions/0.5.0",
+      "path": "swashbuckle.aspnetcore/5.3.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/netstandard1.6/SwashBuckle.AspNetCore.MicrosoftExtensions.dll",
-        "swashbuckle.aspnetcore.microsoftextensions.0.5.0.nupkg.sha512",
-        "swashbuckle.aspnetcore.microsoftextensions.nuspec"
+        "build/Swashbuckle.AspNetCore.props",
+        "swashbuckle.aspnetcore.5.3.1.nupkg.sha512",
+        "swashbuckle.aspnetcore.nuspec"
       ]
     },
     "Swashbuckle.AspNetCore.Swagger/5.3.1": {
@@ -12885,7 +12921,7 @@
       "MySql.Data.Entity >= 6.10.9",
       "MySql.Data.EntityFrameworkCore >= 8.0.19",
       "MySqlConnector >= 0.61.0",
-      "SwashBuckle.AspNetCore.MicrosoftExtensions >= 0.5.0",
+      "Swashbuckle.AspNetCore >= 5.3.1",
       "Swashbuckle.AspNetCore.SwaggerGen >= 5.3.1",
       "Swashbuckle.AspNetCore.SwaggerUI >= 5.3.1",
       "System.IdentityModel.Tokens.Jwt >= 5.6.0"
@@ -13003,9 +13039,9 @@
             "target": "Package",
             "version": "[0.61.0, )"
           },
-          "SwashBuckle.AspNetCore.MicrosoftExtensions": {
+          "Swashbuckle.AspNetCore": {
             "target": "Package",
-            "version": "[0.5.0, )"
+            "version": "[5.3.1, )"
           },
           "Swashbuckle.AspNetCore.SwaggerGen": {
             "target": "Package",
@@ -13030,7 +13066,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.101/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.200/RuntimeIdentifierGraph.json"
       }
     }
   },
