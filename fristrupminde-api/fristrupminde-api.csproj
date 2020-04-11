@@ -39,5 +39,20 @@
     <Folder Include="Models\Inputs\" />
     <Folder Include="Models\Inputs\ProjectTaskInputs\" />
     <Folder Include="Models\Outputs\" />
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Migrations\20200410135116_InitialDB.Designer.cs" />
+    <Compile Remove="Migrations\20200411083433_AddedGuid.cs" />
+    <Compile Remove="Migrations\DataContextModelSnapshot.cs" />
+    <Compile Remove="Migrations\20200411083433_AddedGuid.Designer.cs" />
+    <Compile Remove="Migrations\20200411105300_AuthenticationAdded.Designer.cs" />
+    <Compile Remove="Migrations\20200411105300_AuthenticationAdded.cs" />
+    <Compile Remove="Migrations\20200411105535_Initial.cs" />
+    <Compile Remove="Migrations\20200411105535_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200411110326_Initial.cs" />
+    <Compile Remove="Migrations\20200411110326_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200411110555_Initial.cs" />
+    <Compile Remove="Migrations\20200411110555_Initial.Designer.cs" />
   </ItemGroup>
 </Project>

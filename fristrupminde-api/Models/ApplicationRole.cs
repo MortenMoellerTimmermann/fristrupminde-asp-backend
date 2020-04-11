@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace fristrupminde_api.Models
 {
-    public class ApplicationUser : IdentityUser<Guid>
+    public class ApplicationRole : IdentityRole<Guid>
     {
+        
     }
 }

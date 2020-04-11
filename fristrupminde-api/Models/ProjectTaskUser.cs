@@ -3,8 +3,8 @@ namespace fristrupminde_api.Models
 {
     public class ProjectTaskUser
     {
-        public string ProjectTaskUserID { get; set; }
-        public string ProjectTaskID { get; set; }
-        public string UserID { get; set; }
+        public Guid ProjectTaskUserID { get; set; }
+        public Guid ProjectTaskID { get; set; }
+        public Guid UserID { get; set; }
     }
 }
