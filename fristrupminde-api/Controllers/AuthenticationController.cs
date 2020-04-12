@@ -76,12 +76,14 @@ namespace fristrupminde_api.Controllers
             string token = HttpContext.Request.Headers["Authorization"];
             if (token != null)
             {
-                if (_jwtService.ValidateToken(token))
+                try
                 {
-                    JwtSecurityToken readToken =_jwtService.ReadToken(token);
-                    string email = readToken.Claims.FirstOrDefault(claim => claim.Type == "email").Value;
-                    ApplicationUser user = await _userManager.FindByEmailAsync(email);
+                    ApplicationUser user = await _userManager.FindByEmailAsync(_jwtService.GetClaimValue(token, "email"));
                     return Json("Token is validated for user: " + user.Email);
+                }
+                catch
+                {
+                    return Unauthorized();
                 }
             }
             return Unauthorized();

@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Http;
+using System.Linq;
 
 namespace fristrupminde_api.Services
 {
@@ -41,6 +43,16 @@ namespace fristrupminde_api.Services
                 signingCredentials: creds
             );
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public string GetClaimValue(string token, string claimType)
+        {
+            if (ValidateToken(token))
+            {
+                JwtSecurityToken readToken = ReadToken(token);
+                return readToken.Claims.FirstOrDefault(claim => claim.Type == claimType).Value;
+            }
+            throw new ApplicationException("Claim not found");
         }
 
         public JwtSecurityToken ReadToken(string token)
