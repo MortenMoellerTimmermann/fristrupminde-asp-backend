@@ -33,14 +33,14 @@ namespace fristrupminde_api.Controllers
         [HttpPost]
         [Route("api/login")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public async Task<Object> Login([FromBody] LoginDTO model)
+        public async Task<IActionResult> Login([FromBody] LoginDTO model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 
             if (result.Succeeded)
             {
                 ApplicationUser user = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
-                return await _jwtService.GenerateJwtToken(user);
+                return Json(_jwtService.GenerateJwtToken(user));
             }
 
             throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
@@ -49,7 +49,7 @@ namespace fristrupminde_api.Controllers
         [HttpPost]
         [Route("api/register")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public async Task<Object> Register([FromBody] RegisterDTO model)
+        public async Task<IActionResult> Register([FromBody] RegisterDTO model)
         {
             var user = new ApplicationUser
             {
@@ -61,7 +61,7 @@ namespace fristrupminde_api.Controllers
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
-                return await _jwtService.GenerateJwtToken(user);
+                return Json(_jwtService.GenerateJwtToken(user));
             }
 
             throw new ApplicationException("UNKNOWN_ERROR");

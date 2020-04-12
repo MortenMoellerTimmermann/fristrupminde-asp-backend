@@ -24,6 +24,8 @@ namespace fristrupminde_api
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -39,6 +41,15 @@ namespace fristrupminde_api
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                                  });
             });
 
             services.AddIdentity<ApplicationUser, ApplicationRole>()
@@ -129,6 +140,7 @@ namespace fristrupminde_api
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseMvc();
         }

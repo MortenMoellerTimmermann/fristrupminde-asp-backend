@@ -21,7 +21,7 @@ namespace fristrupminde_api.Services
             this._config = config;
         }
 
-        public async Task<Object> GenerateJwtToken(ApplicationUser user)
+        public string GenerateJwtToken(ApplicationUser user)
         {
             var claims = new List<Claim>
             {
