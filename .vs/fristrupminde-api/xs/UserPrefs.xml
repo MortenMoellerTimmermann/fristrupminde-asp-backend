@@ -1,14 +1,16 @@
 ﻿<Properties StartupConfiguration="{29399877-7BA3-4524-99B3-60A8EB0480C3}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="fristrupminde-api/Controllers/AuthenticationController.cs">
     <Files>
-      <File FileName="fristrupminde-api/Controllers/AuthenticationController.cs" Line="84" Column="14" />
+      <File FileName="fristrupminde-api/Controllers/AuthenticationController.cs" Line="85" Column="18" />
       <File FileName="fristrupminde-api/Models/ApplicationUser.cs" />
       <File FileName="fristrupminde-api/Data/DataContext.cs" />
       <File FileName="fristrupminde-api/Models/Inputs/Authentication/RegisterDTO.cs" />
       <File FileName="fristrupminde-api/Models/Inputs/Authentication/LoginDTO.cs" />
-      <File FileName="fristrupminde-api/Controllers/ProjectTaskController.cs" Line="26" Column="38" />
+      <File FileName="fristrupminde-api/Controllers/ProjectTaskController.cs" Line="62" Column="21" />
       <File FileName="fristrupminde-api/Controllers/HomeController.cs" />
-      <File FileName="fristrupminde-api/Startup.cs" Line="84" Column="1" />
+      <File FileName="fristrupminde-api/Startup.cs" Line="46" Column="45" />
+      <File FileName="fristrupminde-api/Services/JwtService.cs" Line="46" Column="32" />
+      <File FileName="fristrupminde-api/Program.cs" Line="17" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -27,6 +29,7 @@
                 </Node>
               </Node>
               <Node name="Properties" expanded="True" />
+              <Node name="Services" expanded="True" />
             </Node>
           </Node>
         </State>
@@ -37,7 +40,9 @@
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/mortentimmermann/Desktop/fristrupminde-asp-backend/fristrupminde-api/Controllers/AuthenticationController.cs" relfile="fristrupminde-api/Controllers/AuthenticationController.cs" line="83" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
 </Properties>

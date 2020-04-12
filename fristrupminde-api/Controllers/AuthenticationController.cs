@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using fristrupminde_api.Models.Inputs.Authentication;
+using fristrupminde_api.Services;
 using System.Linq;
 using fristrupminde_api.Models;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Web.Http.Cors;
-using Microsoft.IdentityModel.Tokens;
-using System.Security.Principal;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace fristrupminde_api.Controllers
 {
@@ -24,12 +20,14 @@ namespace fristrupminde_api.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _config;
+        private JwtService _jwtService;
 
-        public AuthenticationController(UserManager<ApplicationUser> userManager,SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
+        public AuthenticationController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _config = configuration;
+            _jwtService = new JwtService(_config);
         }
 
         [HttpPost]
@@ -42,7 +40,7 @@ namespace fristrupminde_api.Controllers
             if (result.Succeeded)
             {
                 ApplicationUser user = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
-                return await GenerateJwtToken(user);
+                return await _jwtService.GenerateJwtToken(user);
             }
 
             throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
@@ -63,7 +61,7 @@ namespace fristrupminde_api.Controllers
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
-                return await GenerateJwtToken(user);
+                return await _jwtService.GenerateJwtToken(user);
             }
 
             throw new ApplicationException("UNKNOWN_ERROR");
@@ -73,70 +71,23 @@ namespace fristrupminde_api.Controllers
         [Route("api/user/validate")]
         [HttpPost]
         [EnableCors(origins: "*", headers: "*", methods: "*", SupportsCredentials = true)]
-        public async Task<IActionResult> ValidateUserToken(string token)
+        public async Task<IActionResult> ValidateUserToken()
         {
+            string token = HttpContext.Request.Headers["Authorization"];
             if (token != null)
             {
-                if (ValidateToken(token))
+                if (_jwtService.ValidateToken(token))
                 {
-                    return Ok();
+                    JwtSecurityToken readToken =_jwtService.ReadToken(token);
+                    string email = readToken.Claims.FirstOrDefault(claim => claim.Type == "email").Value;
+                    ApplicationUser user = await _userManager.FindByEmailAsync(email);
+                    return Json("Token is validated for user: " + user.Email);
                 }
             }
             return Unauthorized();
         }
 
 
-        private async Task<Object> GenerateJwtToken(ApplicationUser user)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.UserName)
-            };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.Now.AddDays(Convert.ToDouble(_config["Jwt:ExpireDays"]));
-
-            var token = new JwtSecurityToken(
-                _config["Jwt:Issuer"],
-                _config["Jwt:Issuer"],
-                claims,
-                expires: expires,
-                signingCredentials: creds
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-
-        private bool ValidateToken(string token)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var validationParameters = GetValidationParameters();
-
-            SecurityToken validatedToken;
-            try
-            {
-                tokenHandler.ValidateToken(token, validationParameters, out validatedToken);
-            }
-            catch
-            {
-                return false;
-            }
-            return true;
-        }
-
-        private TokenValidationParameters GetValidationParameters()
-        {
-            return new TokenValidationParameters()
-            {
-                ValidIssuer = _config["Jwt:Issuer"],
-                ValidAudience = _config["Jwt:Issuer"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"])),
-                ClockSkew = TimeSpan.Zero // remove delay of token when expire generate the token
-            };
-        }
     }
 }

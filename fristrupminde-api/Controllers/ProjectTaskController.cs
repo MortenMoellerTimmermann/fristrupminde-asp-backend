@@ -45,7 +45,8 @@ namespace fristrupminde_api.Controllers
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public async Task<IActionResult> postTask([FromBody]CreateTaskInput taskInput)
         {
-            var user = await _userManager.GetUserAsync(User);
+            ClaimsPrincipal principal = HttpContext.User as ClaimsPrincipal;
+            var user = await _userManager.GetUserAsync(principal);
             ProjectTask NewTask = new ProjectTask();
             NewTask.Title = taskInput.Title;
             NewTask.Description = taskInput.Description;

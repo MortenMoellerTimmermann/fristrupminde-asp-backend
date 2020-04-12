@@ -41,6 +41,7 @@
     <Folder Include="Models\Outputs\" />
     <Folder Include="Migrations\" />
     <Folder Include="Models\Inputs\Authentication\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Migrations\20200410135116_InitialDB.Designer.cs" />
