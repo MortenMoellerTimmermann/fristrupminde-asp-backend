@@ -1,10 +1,13 @@
 ﻿<Properties StartupConfiguration="{29399877-7BA3-4524-99B3-60A8EB0480C3}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="fristrupminde-api/Controllers/AuthenticationController.cs">
     <Files>
-      <File FileName="fristrupminde-api/Controllers/AuthenticationController.cs" Line="29" Column="44" />
-      <File FileName="fristrupminde-api/Controllers/ProjectTaskController.cs" Line="32" Column="3" />
-      <File FileName="fristrupminde-api/Services/JwtService.cs" Line="48" Column="23" />
+      <File FileName="fristrupminde-api/Controllers/AuthenticationController.cs" Line="87" Column="18" />
+      <File FileName="fristrupminde-api/Controllers/ProjectTaskController.cs" Line="68" Column="18" />
+      <File FileName="fristrupminde-api/Services/JwtService.cs" Line="55" Column="43" />
       <File FileName="fristrupminde-api/Controllers/HomeController.cs" Line="1" Column="1" />
+      <File FileName="fristrupminde-api/Models/Inputs/ProjectTaskInputs/CreateTaskInput.cs" Line="1" Column="1" />
+      <File FileName="fristrupminde-api/Startup.cs" Line="1" Column="1" />
+      <File FileName="fristrupminde-api/Models/ProjectTaskUser.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -27,6 +30,9 @@
             </Node>
           </Node>
         </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

@@ -56,12 +56,17 @@ namespace fristrupminde_api.Controllers
                 {
                     ApplicationUser user = await _userManager.FindByEmailAsync(_jwtService.GetClaimValue(token, "email"));
                     List<Guid> taskIDs = await _context.ProjectTaskUsers.Where(UT => UT.UserID == user.Id).Select(UT => UT.ProjectTaskID).ToListAsync();
-                    List<ProjectTask> tasks = await _context.ProjectTasks.Where(task => taskIDs.Contains(task.ID)).ToListAsync();
+                    List<ProjectTask> tasks = await _context.ProjectTasks.ToListAsync();
+                    tasks = tasks.Where(task => taskIDs.Contains(task.ID)).ToList();
                     return Json(tasks);
                 }
-                catch
+                catch(ApplicationException e)
                 {
                     return Unauthorized();
+                }
+                catch(Exception e)
+                {
+                    return NotFound();
                 }
             }
 

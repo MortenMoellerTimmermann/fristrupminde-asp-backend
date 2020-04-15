@@ -75,10 +75,18 @@ namespace fristrupminde_api.Controllers
         [HttpGet]
         [Route("api/getUserEmails")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public async Task<IActionResult> getUserTasks()
+        public async Task<IActionResult> getUserEmails()
         {
-            List<string> emails = await _context.Users.Select(user => user.Email).ToListAsync();
-            return Json(emails);
+            string token = HttpContext.Request.Headers["Authorization"];
+            if (token != null)
+            {
+                if (_jwtService.ValidateToken(token))
+                {
+                    List<string> emails = await _context.Users.Select(user => user.Email).ToListAsync();
+                    return Json(emails);
+                }
+            }
+            return Unauthorized();
         }
 
 
