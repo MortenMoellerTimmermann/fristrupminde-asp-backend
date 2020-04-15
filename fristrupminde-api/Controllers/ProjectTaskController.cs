@@ -14,6 +14,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Web.Http.Cors;
 using System.Collections.Generic;
+using fristrupminde_api.Services;
 
 namespace fristrupminde_api.Controllers
 {
@@ -22,16 +23,18 @@ namespace fristrupminde_api.Controllers
         private IConfiguration _config;
         private readonly DataContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private JwtService _jwtService;
 
         public ProjectTaskController(IConfiguration config, UserManager<ApplicationUser> userManager, DataContext dataContext)
         {
             this._config = config;
             this._userManager = userManager;
             this._context = dataContext;
+            _jwtService = new JwtService(_config);
         }
 
         [HttpGet]
-        [Route("api/getTasks")]
+        [Route("api/getAllTasks")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public async Task<IActionResult> getTasks()
         {
@@ -40,13 +43,37 @@ namespace fristrupminde_api.Controllers
             return Json(task);
         }
 
-        [HttpPost]
-        [Route("api/postTask")]
+
+        [HttpGet]
+        [Route("api/user/getTasks")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public async Task<IActionResult> postTask([FromBody]CreateTaskInput taskInput)
+        public async Task<IActionResult> getUserTasks()
         {
-            ClaimsPrincipal principal = HttpContext.User as ClaimsPrincipal;
-            var user = await _userManager.GetUserAsync(principal);
+            string token = HttpContext.Request.Headers["Authorization"];
+            if (token != null)
+            {
+                try
+                {
+                    ApplicationUser user = await _userManager.FindByEmailAsync(_jwtService.GetClaimValue(token, "email"));
+                    List<Guid> taskIDs = await _context.ProjectTaskUsers.Where(UT => UT.UserID == user.Id).Select(UT => UT.ProjectTaskID).ToListAsync();
+                    List<ProjectTask> tasks = await _context.ProjectTasks.Where(task => taskIDs.Contains(task.ID)).ToListAsync();
+                    return Json(tasks);
+                }
+                catch
+                {
+                    return Unauthorized();
+                }
+            }
+
+            return Unauthorized();
+        }
+
+        [HttpPost]
+        [Route("api/createTask")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public async Task<IActionResult> createTask([FromBody]CreateTaskInput taskInput)
+        {
+            ApplicationUser user = await _userManager.FindByEmailAsync(taskInput.AssignedTo);
             ProjectTask NewTask = new ProjectTask();
             NewTask.Title = taskInput.Title;
             NewTask.Description = taskInput.Description;
@@ -54,6 +81,12 @@ namespace fristrupminde_api.Controllers
             NewTask.DueDate = DateTime.Parse(taskInput.DueDate);
 
             _context.Add(NewTask);
+
+            ProjectTaskUser NewPTU = new ProjectTaskUser();
+            NewPTU.ProjectTaskID = NewTask.ID;
+            NewPTU.UserID = user.Id;
+            _context.Add(NewPTU);
+
             await _context.SaveChangesAsync();
 
             return Json(NewTask.ID);
