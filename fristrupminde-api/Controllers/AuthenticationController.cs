@@ -91,9 +91,8 @@ namespace fristrupminde_api.Controllers
 
 
         [Route("api/user/validate")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [EnableCors(origins: "*", headers: "*", methods: "*", SupportsCredentials = true)]
+        [HttpGet]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public async Task<IActionResult> ValidateUserToken()
         {
             string token = HttpContext.Request.Headers["Authorization"];
@@ -111,8 +110,6 @@ namespace fristrupminde_api.Controllers
             }
             return Unauthorized();
         }
-
-
 
     }
 }
