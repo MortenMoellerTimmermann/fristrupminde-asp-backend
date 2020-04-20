@@ -2,7 +2,7 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="fristrupminde-api/Controllers/ProjectTaskController.cs">
     <Files>
       <File FileName="fristrupminde-api/Controllers/AuthenticationController.cs" Line="102" Column="18" />
-      <File FileName="fristrupminde-api/Controllers/ProjectTaskController.cs" Line="60" Column="85" />
+      <File FileName="fristrupminde-api/Controllers/ProjectTaskController.cs" Line="69" Column="39" />
       <File FileName="fristrupminde-api/Services/JwtService.cs" />
       <File FileName="fristrupminde-api/Controllers/HomeController.cs" />
       <File FileName="fristrupminde-api/Models/Inputs/ProjectTaskInputs/CreateTaskInput.cs" />

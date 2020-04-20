@@ -36,7 +36,7 @@ namespace fristrupminde_api.Controllers
         }
 
         [HttpPost]
-        [Route("api/login")]
+        [Route("api/user/login")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public async Task<IActionResult> Login([FromBody] LoginDTO model)
         {
@@ -52,7 +52,7 @@ namespace fristrupminde_api.Controllers
         }
 
         [HttpPost]
-        [Route("api/register")]
+        [Route("api/user/register")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public async Task<IActionResult> Register([FromBody] RegisterDTO model)
         {
@@ -73,7 +73,7 @@ namespace fristrupminde_api.Controllers
         }
 
         [HttpGet]
-        [Route("api/getUserEmails")]
+        [Route("api/user/emails")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public async Task<IActionResult> getUserEmails()
         {

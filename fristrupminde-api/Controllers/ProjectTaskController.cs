@@ -34,7 +34,7 @@ namespace fristrupminde_api.Controllers
         }
 
         [HttpGet]
-        [Route("api/getAllTasks")]
+        [Route("api/task/getAll")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public async Task<IActionResult> getTasks()
         {
@@ -45,7 +45,7 @@ namespace fristrupminde_api.Controllers
 
 
         [HttpGet]
-        [Route("api/user/getTasks")]
+        [Route("api/task/user/getTasks")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public async Task<IActionResult> getUserTasks()
         {
@@ -73,12 +73,32 @@ namespace fristrupminde_api.Controllers
             return Unauthorized();
         }
 
+        [HttpGet]
+        [Route("api/task/getAvailable")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public async Task<IActionResult> getAvailableTasks()
+        {
+            string token = HttpContext.Request.Headers["Authorization"];
+            if (token != null)
+            {
+                if (_jwtService.ValidateToken(token))
+                {
+                    List<Guid> taskIDs = await _context.ProjectTaskUsers.Select(UT => UT.ProjectTaskID).ToListAsync();
+                    List<ProjectTask> tasks = await _context.ProjectTasks.ToListAsync();
+                    //Does not contain - means available. Might need to be changed when multiple person can have one task
+                    tasks = tasks.Where(task => !taskIDs.Contains(task.ID)).ToList();
+                    return Json(tasks);
+                }
+            }
+
+            return Unauthorized();
+        }
+
         [HttpPost]
-        [Route("api/createTask")]
+        [Route("api/task/create")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public async Task<IActionResult> createTask([FromBody]CreateTaskInput taskInput)
         {
-            ApplicationUser user = await _userManager.FindByEmailAsync(taskInput.AssignedTo);
             ProjectTask NewTask = new ProjectTask();
             NewTask.Title = taskInput.Title;
             NewTask.Description = taskInput.Description;
@@ -86,11 +106,14 @@ namespace fristrupminde_api.Controllers
             NewTask.DueDate = DateTime.Parse(taskInput.DueDate);
 
             _context.Add(NewTask);
-
-            ProjectTaskUser NewPTU = new ProjectTaskUser();
-            NewPTU.ProjectTaskID = NewTask.ID;
-            NewPTU.UserID = user.Id;
-            _context.Add(NewPTU);
+            if (!string.IsNullOrEmpty(taskInput.AssignedTo))
+            {
+                ApplicationUser user = await _userManager.FindByEmailAsync(taskInput.AssignedTo);
+                ProjectTaskUser NewPTU = new ProjectTaskUser();
+                NewPTU.ProjectTaskID = NewTask.ID;
+                NewPTU.UserID = user.Id;
+                _context.Add(NewPTU);
+            }
 
             await _context.SaveChangesAsync();
 
