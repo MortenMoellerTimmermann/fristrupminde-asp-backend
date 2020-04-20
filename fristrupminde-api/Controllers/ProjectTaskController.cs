@@ -60,11 +60,11 @@ namespace fristrupminde_api.Controllers
                     tasks = tasks.Where(task => taskIDs.Contains(task.ID)).ToList();
                     return Json(tasks);
                 }
-                catch(ApplicationException e)
+                catch (ApplicationException e)
                 {
                     return Unauthorized();
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     return NotFound();
                 }
@@ -91,6 +91,43 @@ namespace fristrupminde_api.Controllers
                 }
             }
 
+            return Unauthorized();
+        }
+
+        [HttpPost]
+        [Route("api/task/user/assign")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public async Task<IActionResult> assignTaskToUser([FromBody] AssignUserInput assignUserInput)
+        {
+            string token = HttpContext.Request.Headers["Authorization"];
+            if (token != null)
+            {
+                try
+                {
+
+                    ProjectTask task = await _context.ProjectTasks.SingleOrDefaultAsync(x => x.ID == new Guid(assignUserInput.taskID));
+                    if(task == null)
+                    {
+                        return NotFound();
+                    }
+
+                    ApplicationUser user = await _userManager.FindByEmailAsync(_jwtService.GetClaimValue(token, "email"));
+                    ProjectTaskUser NewPTU = new ProjectTaskUser();
+                    NewPTU.ProjectTaskID = task.ID;
+                    NewPTU.UserID = user.Id;
+                    _context.Add(NewPTU);
+                    await _context.SaveChangesAsync();
+                    return Ok();
+                }
+                catch (ApplicationException e)
+                {
+                    return Unauthorized();
+                }
+                catch (Exception e)
+                {
+                    return NotFound();
+                }
+            }
             return Unauthorized();
         }
 
