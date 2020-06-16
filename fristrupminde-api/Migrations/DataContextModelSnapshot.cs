@@ -249,6 +249,25 @@ namespace fristrupminde_api.Migrations
                     b.ToTable("ProjectTaskUsers");
                 });
 
+            modelBuilder.Entity("fristrupminde_api.Models.StatisticsData", b =>
+                {
+                    b.Property<byte[]>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasConversion(new ValueConverter<byte[], byte[]>(v => default(byte[]), v => default(byte[]), new ConverterMappingHints(size: 16)));
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateForData");
+
+                    b.Property<double>("FatPercentage");
+
+                    b.Property<double>("MilkLiter");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("StatisticsDatas");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("fristrupminde_api.Models.ApplicationRole")

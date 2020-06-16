@@ -48,7 +48,7 @@ namespace fristrupminde_api.Controllers
                 return Json(_jwtService.GenerateJwtToken(user));
             }
 
-            throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
+            return NotFound();
         }
 
         [HttpPost]
@@ -69,7 +69,7 @@ namespace fristrupminde_api.Controllers
                 return Json(_jwtService.GenerateJwtToken(user));
             }
 
-            throw new ApplicationException("UNKNOWN_ERROR");
+            return NotFound();
         }
 
         [HttpGet]

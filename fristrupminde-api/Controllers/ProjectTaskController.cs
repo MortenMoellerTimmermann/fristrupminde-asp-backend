@@ -104,7 +104,6 @@ namespace fristrupminde_api.Controllers
             {
                 try
                 {
-
                     ProjectTask task = await _context.ProjectTasks.SingleOrDefaultAsync(x => x.ID == new Guid(assignUserInput.taskID));
                     if(task == null)
                     {

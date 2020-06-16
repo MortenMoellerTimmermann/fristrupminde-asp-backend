@@ -9,8 +9,8 @@ using fristrupminde_api.Data;
 namespace fristrupminde_api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200411164706_RoleChange")]
-    partial class RoleChange
+    [Migration("20200531104854_StatisticsInitial")]
+    partial class StatisticsInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -148,6 +148,7 @@ namespace fristrupminde_api.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
+                        .IsRequired()
                         .HasMaxLength(128);
 
                     b.HasKey("Id");
@@ -173,9 +174,9 @@ namespace fristrupminde_api.Migrations
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
-                    b.Property<bool>("EmailConfirmed");
+                    b.Property<int>("EmailConfirmed");
 
-                    b.Property<bool>("LockoutEnabled");
+                    b.Property<int>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
@@ -191,11 +192,11 @@ namespace fristrupminde_api.Migrations
 
                     b.Property<string>("PhoneNumber");
 
-                    b.Property<bool>("PhoneNumberConfirmed");
+                    b.Property<int>("PhoneNumberConfirmed");
 
                     b.Property<string>("SecurityStamp");
 
-                    b.Property<bool>("TwoFactorEnabled");
+                    b.Property<int>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
@@ -248,6 +249,25 @@ namespace fristrupminde_api.Migrations
                     b.HasKey("ProjectTaskUserID");
 
                     b.ToTable("ProjectTaskUsers");
+                });
+
+            modelBuilder.Entity("fristrupminde_api.Models.StatisticsData", b =>
+                {
+                    b.Property<byte[]>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasConversion(new ValueConverter<byte[], byte[]>(v => default(byte[]), v => default(byte[]), new ConverterMappingHints(size: 16)));
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateForData");
+
+                    b.Property<double>("FatPercentage");
+
+                    b.Property<double>("MilkLiter");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("StatisticsDatas");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
