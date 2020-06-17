@@ -8,5 +8,10 @@ namespace fristrupminde_api.Models
         public string Description { get; set; }
         public DateTime DueDate { get; set; }
         public DateTime Created { get; set; }
+
+        //Nullable attributes
+        public DateTime? CompletedDate { get; set; }
+        //String is always nullable
+        public string CompletedBy { get; set; }
     }
 }

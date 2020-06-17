@@ -56,7 +56,7 @@ namespace fristrupminde_api.Controllers
                 {
                     ApplicationUser user = await _userManager.FindByEmailAsync(_jwtService.GetClaimValue(token, "email"));
                     List<Guid> taskIDs = await _context.ProjectTaskUsers.Where(UT => UT.UserID == user.Id).Select(UT => UT.ProjectTaskID).ToListAsync();
-                    List<ProjectTask> tasks = await _context.ProjectTasks.ToListAsync();
+                    List<ProjectTask> tasks = await _context.ProjectTasks.Where(task => task.CompletedDate == null).ToListAsync();
                     tasks = tasks.Where(task => taskIDs.Contains(task.ID)).ToList();
                     return Json(tasks);
                 }
@@ -154,6 +154,42 @@ namespace fristrupminde_api.Controllers
             await _context.SaveChangesAsync();
 
             return Json(NewTask.ID);
+        }
+
+        [HttpPut]
+        [Route("api/task/finish")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public async Task<IActionResult> finishTask([FromBody]FinishTaskInput finishTaskInput)
+        {
+            string token = HttpContext.Request.Headers["Authorization"];
+            if (token != null)
+            {
+                try
+                {
+                    ProjectTask task = await _context.ProjectTasks.SingleOrDefaultAsync(x => x.ID == new Guid(finishTaskInput.taskID));
+                    if (task == null)
+                    {
+                        return NotFound();
+                    }
+
+                    ApplicationUser user = await _userManager.FindByEmailAsync(_jwtService.GetClaimValue(token, "email"));
+                    task.CompletedDate = DateTime.Now;
+                    task.CompletedBy = user.Email;
+                    //Maybe delete ProjectTaskUser object for the task or keep it for seeing previous completed tasks
+                    _context.Update(task);
+                    await _context.SaveChangesAsync();
+                    return Ok();
+                }
+                catch (ApplicationException e)
+                {
+                    return Unauthorized();
+                }
+                catch (Exception e)
+                {
+                    return NotFound();
+                }
+            }
+            return Unauthorized();
         }
 
         [HttpDelete]
