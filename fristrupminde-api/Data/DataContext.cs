@@ -15,6 +15,7 @@ namespace fristrupminde_api.Data
         public DbSet<ProjectTask> ProjectTasks { get; set; }
         public DbSet<Animal> Animals { get; set; }
         public DbSet<ProjectTaskUser> ProjectTaskUsers { get; set; }
+        public DbSet<Remark> Remarks { get; set; }
         public DbSet<StatisticsData> StatisticsDatas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

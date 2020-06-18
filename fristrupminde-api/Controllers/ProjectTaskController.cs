@@ -12,9 +12,11 @@ using System.Net;
 using System;
 using System.Security.Claims;
 using System.Text;
+using fristrupminde_api.Models.Outputs.Authentication;
 using System.Web.Http.Cors;
 using System.Collections.Generic;
 using fristrupminde_api.Services;
+using fristrupminde_api.Models.Outputs.ProjectTaskOutputs;
 
 namespace fristrupminde_api.Controllers
 {
@@ -135,25 +137,97 @@ namespace fristrupminde_api.Controllers
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public async Task<IActionResult> createTask([FromBody]CreateTaskInput taskInput)
         {
-            ProjectTask NewTask = new ProjectTask();
-            NewTask.Title = taskInput.Title;
-            NewTask.Description = taskInput.Description;
-            NewTask.Created = DateTime.Now;
-            NewTask.DueDate = DateTime.Parse(taskInput.DueDate);
-
-            _context.Add(NewTask);
-            if (!string.IsNullOrEmpty(taskInput.AssignedTo))
+            string token = HttpContext.Request.Headers["Authorization"];
+            if (token != null)
             {
-                ApplicationUser user = await _userManager.FindByEmailAsync(taskInput.AssignedTo);
-                ProjectTaskUser NewPTU = new ProjectTaskUser();
-                NewPTU.ProjectTaskID = NewTask.ID;
-                NewPTU.UserID = user.Id;
-                _context.Add(NewPTU);
+                try
+                {
+                    ApplicationUser user = await _userManager.FindByEmailAsync(_jwtService.GetClaimValue(token, "email"));
+                    ProjectTask NewTask = new ProjectTask();
+                    NewTask.Title = taskInput.Title;
+                    NewTask.Description = taskInput.Description;
+                    NewTask.Created = DateTime.Now;
+                    NewTask.DueDate = DateTime.Parse(taskInput.DueDate);
+                    NewTask.CreatedBy = user.Email;
+
+                    _context.Add(NewTask);
+                    if (!string.IsNullOrEmpty(taskInput.AssignedTo))
+                    {
+                        //TODO split string by ; and make multiple PTU
+                        ApplicationUser AssignTo = await _userManager.FindByEmailAsync(taskInput.AssignedTo);
+                        ProjectTaskUser NewPTU = new ProjectTaskUser();
+                        NewPTU.ProjectTaskID = NewTask.ID;
+                        NewPTU.UserID = AssignTo.Id;
+                        _context.Add(NewPTU);
+                    }
+
+                    await _context.SaveChangesAsync();
+
+                    return Json(NewTask.ID);
+                }
+                catch (ApplicationException e)
+                {
+                    return Unauthorized();
+                }
+                catch (Exception e)
+                {
+                    return NotFound();
+                }
             }
+            return Unauthorized();
+        }
 
-            await _context.SaveChangesAsync();
 
-            return Json(NewTask.ID);
+        [HttpPost]
+        [Route("api/task/details")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public async Task<IActionResult> taskDetails([FromBody] DetailsTaskInput detailsTaskInput)
+        {
+            string token = HttpContext.Request.Headers["Authorization"];
+            if (token != null)
+            {
+                try
+                {
+
+                    Guid taskIDAsGuid = new Guid(detailsTaskInput.taskID);
+                    DetailsTaskOutput DTO = new DetailsTaskOutput();
+
+
+                    ProjectTask task = await _context.ProjectTasks.SingleOrDefaultAsync(x => x.ID == taskIDAsGuid);
+                    if (task == null)
+                    {
+                        return NotFound();
+                    }
+
+                    ApplicationUser user = await _userManager.FindByEmailAsync(_jwtService.GetClaimValue(token, "email"));
+
+                    //Gets all the users on the task
+                    List<Guid> userIDs = await _context.ProjectTaskUsers.Where(UT => UT.ProjectTaskID == taskIDAsGuid).Select(UT => UT.UserID).ToListAsync();
+                    List<ApplicationUser> UsersOnTask = await _context.Users.ToListAsync();
+                    UsersOnTask = UsersOnTask.Where(u => userIDs.Contains(u.Id)).ToList();
+                    DTO.UsersOnTask = new List<UserOutput>();
+                    UsersOnTask.ForEach(u =>
+                    {
+                        UserOutput UO = new UserOutput();
+                        UO.Username = u.UserName;
+                        UO.Email = u.Email;
+                        UO.Avatar = "https://www.suitdoctors.com/wp-content/uploads/2016/11/dummy-man-570x570.png";
+                        DTO.UsersOnTask.Add(UO);
+                    });
+
+                    DTO.Remarks = await _context.Remarks.Where(Remark => Remark.ProjectTaskID == taskIDAsGuid).ToListAsync();
+                    return Json(DTO);
+                }
+                catch (ApplicationException e)
+                {
+                    return Unauthorized();
+                }
+                catch (Exception e)
+                {
+                    return NotFound();
+                }
+            }
+            return Unauthorized();
         }
 
         [HttpPut]
