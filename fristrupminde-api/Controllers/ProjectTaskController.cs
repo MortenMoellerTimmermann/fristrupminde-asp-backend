@@ -189,7 +189,7 @@ namespace fristrupminde_api.Controllers
                 try
                 {
 
-                    Guid taskIDAsGuid = new Guid(detailsTaskInput.taskID);
+                    Guid taskIDAsGuid = new Guid(detailsTaskInput.TaskID);
                     DetailsTaskOutput DTO = new DetailsTaskOutput();
 
 
@@ -216,6 +216,7 @@ namespace fristrupminde_api.Controllers
                     });
 
                     DTO.Remarks = await _context.Remarks.Where(Remark => Remark.ProjectTaskID == taskIDAsGuid).ToListAsync();
+                    DTO.Remarks = DTO.Remarks.OrderBy(x => x.Created).ToList();
                     return Json(DTO);
                 }
                 catch (ApplicationException e)
@@ -240,7 +241,7 @@ namespace fristrupminde_api.Controllers
             {
                 try
                 {
-                    ProjectTask task = await _context.ProjectTasks.SingleOrDefaultAsync(x => x.ID == new Guid(finishTaskInput.taskID));
+                    ProjectTask task = await _context.ProjectTasks.SingleOrDefaultAsync(x => x.ID == new Guid(finishTaskInput.TaskID));
                     if (task == null)
                     {
                         return NotFound();
@@ -281,6 +282,47 @@ namespace fristrupminde_api.Controllers
             _context.ProjectTasks.Remove(PT);
             await _context.SaveChangesAsync();
             return Ok();
+        }
+
+        [HttpPost]
+        [Route("api/task/remark/create")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public async Task<IActionResult> createRemark([FromBody] CreateRemarkInput createRemarkInput)
+        {
+            string token = HttpContext.Request.Headers["Authorization"];
+            if (token != null)
+            {
+                try
+                {
+
+                    ProjectTask task = await _context.ProjectTasks.SingleOrDefaultAsync(x => x.ID == new Guid(createRemarkInput.TaskID));
+                    if (task == null)
+                    {
+                        return NotFound();
+                    }
+
+                    ApplicationUser user = await _userManager.FindByEmailAsync(_jwtService.GetClaimValue(token, "email"));
+
+                    Remark remark = new Remark();
+                    remark.ProjectTaskID = task.ID;
+                    remark.Description = createRemarkInput.Description;
+                    remark.CreatedBy = user.Email;
+                    remark.Created = DateTime.Now;
+
+                    _context.Remarks.Add(remark);
+                    await _context.SaveChangesAsync();
+                    return Ok();
+                }
+                catch (ApplicationException e)
+                {
+                    return Unauthorized();
+                }
+                catch (Exception e)
+                {
+                    return NotFound();
+                }
+            }
+            return Unauthorized();
         }
     }
 }
