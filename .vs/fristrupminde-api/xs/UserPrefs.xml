@@ -1,23 +1,23 @@
 ﻿<Properties StartupConfiguration="{29399877-7BA3-4524-99B3-60A8EB0480C3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="fristrupminde-api/Migrations/20200623082606_RemarkCreatedDetails.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="fristrupminde-api/Controllers/ProjectTaskController.cs">
     <Files>
-      <File FileName="fristrupminde-api/Controllers/AuthenticationController.cs" Line="48" Column="49" />
-      <File FileName="fristrupminde-api/Controllers/ProjectTaskController.cs" Line="311" Column="43" />
-      <File FileName="fristrupminde-api/Services/JwtService.cs" Line="31" Column="70" />
+      <File FileName="fristrupminde-api/Controllers/AuthenticationController.cs" Line="69" Column="48" />
+      <File FileName="fristrupminde-api/Controllers/ProjectTaskController.cs" Line="226" Column="18" />
+      <File FileName="fristrupminde-api/Services/JwtService.cs" Line="80" Column="14" />
       <File FileName="fristrupminde-api/Controllers/HomeController.cs" />
       <File FileName="fristrupminde-api/Models/Inputs/ProjectTaskInputs/CreateTaskInput.cs" Line="2" Column="60" />
-      <File FileName="fristrupminde-api/Startup.cs" />
+      <File FileName="fristrupminde-api/Startup.cs" Line="56" Column="58" />
       <File FileName="fristrupminde-api/Models/ProjectTaskUser.cs" />
-      <File FileName="fristrupminde-api/Models/Inputs/ProjectTaskInputs/AssignTaskToUser.cs" />
+      <File FileName="fristrupminde-api/Models/Inputs/ProjectTaskInputs/AssignTaskToUser.cs" Line="1" Column="1" />
       <File FileName="fristrupminde-api/Models/Inputs/Statistics/CreateStatisticsData.cs" />
       <File FileName="fristrupminde-api/Controllers/StatisticsController.cs" />
       <File FileName="fristrupminde-api/Models/StatisticsData.cs" Line="1" Column="1" />
-      <File FileName="fristrupminde-api/Data/DataContext.cs" />
+      <File FileName="fristrupminde-api/Data/DataContext.cs" Line="12" Column="1" />
       <File FileName="fristrupminde-api/Models/ProjectTask.cs" />
       <File FileName="fristrupminde-api/Models/ApplicationUser.cs" />
       <File FileName="fristrupminde-api/Migrations/20200531104854_StatisticsInitial.cs" />
       <File FileName="fristrupminde-api/Models/Outputs/Statistics/StatisticsDataOutput.cs" />
-      <File FileName="fristrupminde-api/Models/Inputs/ProjectTaskInputs/FinishTaskInput.cs" Line="12" Column="1" />
+      <File FileName="fristrupminde-api/Models/Inputs/ProjectTaskInputs/FinishTaskInput.cs" Line="8" Column="7" />
       <File FileName="fristrupminde-api/Migrations/20200617092821_ProjectTaskCompleted.cs" />
       <File FileName="fristrupminde-api/Migrations/20200617092821_ProjectTaskCompleted.Designer.cs" />
       <File FileName="fristrupminde-api/Models/Inputs/ProjectTaskInputs/DetailsTaskInput.cs" Line="12" Column="1" />
@@ -26,17 +26,18 @@
       <File FileName="fristrupminde-api/Models/Outputs/Authentication/UserOutput.cs" />
       <File FileName="fristrupminde-api/Models/Remark.cs" Line="13" Column="1" />
       <File FileName="fristrupminde-api/Models/Inputs/ProjectTaskInputs/CreateRemarksInput.cs" Line="8" Column="1" />
-      <File FileName="fristrupminde-api/Migrations/20200623082606_RemarkCreatedDetails.cs" Line="22" Column="1" />
+      <File FileName="fristrupminde-api/Migrations/20200623082606_RemarkCreatedDetails.cs" Line="36" Column="1" />
+      <File FileName="fristrupminde-api/appsettings.json" Line="17" Column="16" />
+      <File FileName="fristrupminde-api/Program.cs" Line="1" Column="1" />
+      <File FileName="fristrupminde-api/Models/Inputs/ProjectTaskInputs/UnsubscribeTaskInput.cs" Line="12" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="fristrupminde-api" expanded="True">
             <Node name="fristrupminde-api" expanded="True">
-              <Node name="Controllers" expanded="True" />
-              <Node name="Data" expanded="True" />
-              <Node name="Migrations" expanded="True">
-                <Node name="20200623082606_RemarkCreatedDetails.cs" selected="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="ProjectTaskController.cs" selected="True" />
               </Node>
               <Node name="Models" expanded="True">
                 <Node name="Inputs" expanded="True">

@@ -17,6 +17,7 @@ using System.Web.Http.Cors;
 using System.Collections.Generic;
 using fristrupminde_api.Services;
 using fristrupminde_api.Models.Outputs.ProjectTaskOutputs;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace fristrupminde_api.Controllers
 {
@@ -272,8 +273,6 @@ namespace fristrupminde_api.Controllers
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public async Task<IActionResult> deleteTask(Guid id)
         {
-            ProjectTask InputTask = new ProjectTask();
-
             ProjectTask PT = await _context.ProjectTasks.SingleOrDefaultAsync(x => x.ID == id);
             if (PT == null)
             {
@@ -282,6 +281,39 @@ namespace fristrupminde_api.Controllers
             _context.ProjectTasks.Remove(PT);
             await _context.SaveChangesAsync();
             return Ok();
+        }
+
+        [HttpDelete]
+        [Route("api/deleteTask/{id}")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public async Task<IActionResult> unsubscribeTask(UnsubscribeTaskInput unsubscribeTaskInput)
+        {
+            string token = HttpContext.Request.Headers["Authorization"];
+            if (token != null)
+            {
+                try
+                {
+                    ApplicationUser user = await _userManager.FindByEmailAsync(_jwtService.GetClaimValue(token, "email"));
+                    ProjectTaskUser PTU = await _context.ProjectTaskUsers.SingleOrDefaultAsync(x => x.ProjectTaskID == new Guid(unsubscribeTaskInput.TaskID) && x.UserID == user.Id);
+                    if (PTU == null)
+                    {
+                        return NotFound();
+                    }
+
+                    _context.ProjectTaskUsers.Remove(PTU);
+                    await _context.SaveChangesAsync();
+                    return Ok();
+                }
+                catch (ApplicationException e)
+                {
+                    return Unauthorized();
+                }
+                catch (Exception e)
+                {
+                    return NotFound();
+                }
+            }
+            return Unauthorized();
         }
 
         [HttpPost]

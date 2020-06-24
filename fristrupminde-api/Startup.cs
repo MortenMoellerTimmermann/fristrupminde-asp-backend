@@ -53,8 +53,7 @@ namespace fristrupminde_api
             });
 
             services.AddIdentity<ApplicationUser, ApplicationRole>()
-                .AddEntityFrameworkStores<DataContext>()
-                .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<DataContext>();
 
             services.AddDbContext<DataContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("DefaultConnection"))
@@ -89,13 +88,7 @@ namespace fristrupminde_api
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
             
             services
-                .AddAuthentication(options =>
-                {
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-
-                })
+                .AddAuthentication()
                 .AddJwtBearer(cfg =>
                 {
                     cfg.RequireHttpsMetadata = false;
@@ -104,8 +97,8 @@ namespace fristrupminde_api
                     {
                         ValidIssuer = Configuration["Jwt:Issuer"],
                         ValidAudience = Configuration["Jwt:Issuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
-                        ClockSkew = TimeSpan.Zero // remove delay of token when expire
+                        ValidateLifetime = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                     };
                 });
                 

@@ -74,6 +74,17 @@ namespace fristrupminde_api.Services
             {
                 return false;
             }
+
+            //Validate token lifetime
+            if (validationParameters.ValidateLifetime)
+            {
+                //If validTo is earlier than datetime now, then return -1. Therefore not valid anymore
+                if (DateTime.Compare(validatedToken.ValidTo, DateTime.Now) < 0)
+                {
+                    return false;
+                }
+            }
+
             return true;
         }
 
@@ -83,8 +94,8 @@ namespace fristrupminde_api.Services
             {
                 ValidIssuer = _config["Jwt:Issuer"],
                 ValidAudience = _config["Jwt:Issuer"],
+                ValidateLifetime = true,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"])),
-                ClockSkew = TimeSpan.Zero // remove delay of token when expire generate the token
             };
         }
 
